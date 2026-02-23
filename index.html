@@ -3,51 +3,51 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { background: #0f0f0f; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: #1a1a1a; border: 2px solid #ff0044; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; }
-        h1 { color: #ff0044; margin-top: 0; }
-        .lock-icon { font-size: 50px; margin-bottom: 10px; }
-        
-        /* Buttons */
-        .sub-btn { background: #ff0044; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; text-decoration: none; display: inline-block; margin-bottom: 10px; }
-        .copy-btn { background: #00ff88; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; display: none; cursor: pointer; }
-        
-        code { display: none; background: #000; padding: 15px; margin-bottom: 20px; border-radius: 10px; font-size: 11px; word-break: break-all; color: #00ff88; border: 1px solid #333; }
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #1a1a1a; color: white; }
+        .btn { padding: 15px 25px; margin: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; width: 80%; max-width: 300px; }
+        #sub-btn { background: #ff0000; color: white; }
+        #unlock-btn { background: #444; color: #888; cursor: not-allowed; }
+        #unlock-btn.active { background: #00ff00; color: black; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="card" id="mainCard">
-        <div class="lock-icon">🔒</div>
-        <h1>Sharp Scripts</h1>
-        <p id="status">Please Subscribe to Unlock</p>
-        
-        <a href="https://www.youtube.com/@SHARPSCRIPTS-k1c" 
-           target="_blank" 
-           class="sub-btn" 
-           onclick="unlock()">
-           SUBSCRIBE TO UNLOCK
-        </a>
-
-        <code id="scriptBox">loadstring(game:HttpGet("https://pastefy.app/UZBy9tpR/raw"))()</code>
-        <button class="copy-btn" id="copyBtn" onclick="copyScript()">COPY SCRIPT</button>
-    </div>
+    <h2>Complete Step to Unlock</h2>
+    
+    <button id="sub-btn" class="btn" onclick="startSub()">1. SUBSCRIBE CHANNEL</button>
+    
+    <button id="unlock-btn" class="btn" onclick="getLink()" disabled>2. GET LINK (LOCKED)</button>
 
     <script>
-        function unlock() {
-            // Wait 3 seconds after they click subscribe to show the button
-            setTimeout(() => {
-                document.querySelector('.lock-icon').innerText = "🔓";
-                document.getElementById('status').innerText = "Script Unlocked!";
-                document.getElementById('status').style.color = "#00ff88";
-                document.querySelector('.sub-btn').style.display = "none";
-                document.getElementById('scriptBox').style.display = "block";
-                document.getElementById('copyBtn').style.display = "block";
-                document.getElementById('mainCard').style.borderColor = "#00ff88";
-            }, 3000); 
+        let subClicked = false;
+
+        function startSub() {
+            // Change this to YOUR YouTube link
+            window.open("https://m.youtube.com/@YOUR_CHANNEL_HANDLE?sub_confirmation=1", "_blank");
+            subClicked = true;
+            
+            // Tell the user to come back
+            document.getElementById('sub-btn').innerText = "Processing... Return here!";
         }
 
-        function copyScript() {
-            const text = document.getElementById("scriptBox").innerText;
-            navigator.clipboard.writeText(text);
-    
+        // This detects when the user comes back to your website tab
+        window.onfocus = function() {
+            if (subClicked) {
+                const unlockBtn = document.getElementById('unlock-btn');
+                unlockBtn.disabled = false;
+                unlockBtn.classList.add('active');
+                unlockBtn.innerText = "🔓 UNLOCK NOW";
+                document.getElementById('sub-btn').innerText = "✅ Step Completed";
+            }
+        };
+
+        function getLink() {
+            if (!document.getElementById('unlock-btn').disabled) {
+                // Change this to YOUR destination link
+                window.location.href = "https://https://takashi1933.github.io/sharpscripts./";
+            }
+        }
+    </script>
+
+</body>
+</html>
