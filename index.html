@@ -3,40 +3,51 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { background: #121212; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        .card { background: #1e1e1e; border: 2px solid #00ff88; padding: 20px; border-radius: 15px; }
-        h1 { color: #00ff88; }
-        code { display: block; background: #000; padding: 10px; margin: 10px 0; border-radius: 5px; font-size: 12px; word-break: break-all; }
-        button { background: #00ff88; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
-        button:active { background: #00cc6e; }
+        body { background: #0f0f0f; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #1a1a1a; border: 2px solid #ff0044; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; }
+        h1 { color: #ff0044; margin-top: 0; }
+        .lock-icon { font-size: 50px; margin-bottom: 10px; }
+        
+        /* Buttons */
+        .sub-btn { background: #ff0044; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; text-decoration: none; display: inline-block; margin-bottom: 10px; }
+        .copy-btn { background: #00ff88; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; display: none; cursor: pointer; }
+        
+        code { display: none; background: #000; padding: 15px; margin-bottom: 20px; border-radius: 10px; font-size: 11px; word-break: break-all; color: #00ff88; border: 1px solid #333; }
     </style>
 </head>
 <body>
 
-    <div class="card">
+    <div class="card" id="mainCard">
+        <div class="lock-icon">🔒</div>
         <h1>Sharp Scripts</h1>
-        <p>Main Script:</p>
+        <p id="status">Please Subscribe to Unlock</p>
         
-        <code id="scriptText">loadstring(game:HttpGet("https://pastefy.app/UZBy9tpR/raw"))()</code>
-        
-        <button onclick="copyScript()" id="copyBtn">COPY SCRIPT</button>
+        <a href="https://www.youtube.com/@YOUR_CHANNEL_HANDLE?sub_confirmation=1" 
+           target="_blank" 
+           class="sub-btn" 
+           onclick="unlock()">
+           SUBSCRIBE TO UNLOCK
+        </a>
+
+        <code id="scriptBox">loadstring(game:HttpGet("https://pastefy.app/UZBy9tpR/raw"))()</code>
+        <button class="copy-btn" id="copyBtn" onclick="copyScript()">COPY SCRIPT</button>
     </div>
 
     <script>
-        function copyScript() {
-            const text = document.getElementById("scriptText").innerText;
-            navigator.clipboard.writeText(text);
-            
-            const btn = document.getElementById("copyBtn");
-            btn.innerText = "COPIED!";
-            btn.style.background = "#ffffff";
-            
+        function unlock() {
+            // Wait 3 seconds after they click subscribe to show the button
             setTimeout(() => {
-                btn.innerText = "COPY SCRIPT";
-                btn.style.background = "#00ff88";
-            }, 2000);
+                document.querySelector('.lock-icon').innerText = "🔓";
+                document.getElementById('status').innerText = "Script Unlocked!";
+                document.getElementById('status').style.color = "#00ff88";
+                document.querySelector('.sub-btn').style.display = "none";
+                document.getElementById('scriptBox').style.display = "block";
+                document.getElementById('copyBtn').style.display = "block";
+                document.getElementById('mainCard').style.borderColor = "#00ff88";
+            }, 3000); 
         }
-    </script>
 
-</body>
-</html>
+        function copyScript() {
+            const text = document.getElementById("scriptBox").innerText;
+            navigator.clipboard.writeText(text);
+    
